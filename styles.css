@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  transition: background-color 0.5s;
+}
+
+input, button {
+  padding: 10px;
+  margin: 10px;
+}
+
+#taskList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.taskItem {
+  background: #e0e0e0;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Weather-based themes */
+.rainy {
+  background-color: #a0c4ff;
+}
+
+.sunny {
+  background-color: #fff3b0;
+}
+
+.cloudy {
+  background-color: #d3d3d3;
+}
