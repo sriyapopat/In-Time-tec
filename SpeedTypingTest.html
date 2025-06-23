@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Speed Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    #sentence {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      font-size: 18px;
+      padding: 10px;
+    }
+    #feedback {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    #result {
+      font-size: 20px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Typing Speed Test</h2>
+  <p id="sentence">Loading...</p>
+  <textarea id="userInput" placeholder="Start typing here..."></textarea>
+
+  <p id="feedback"></p>
+  <p id="result"></p>
+
+  <button onclick="loadNewSentence()">Try Another</button>
+
+  <script>
+    const sentences = [
+      "The quick brown fox jumps over the lazy dog.",
+      "JavaScript is powerful and versatile.",
+      "Typing tests are a great way to improve speed.",
+      "Consistent practice leads to better performance.",
+      "Front-end development involves HTML, CSS and JavaScript."
+    ];
+
+    let startTime;
+    let targetText = "";
+
+    function loadNewSentence() {
+      targetText = sentences[Math.floor(Math.random() * sentences.length)];
+      document.getElementById("sentence").innerText = targetText;
+      document.getElementById("userInput").value = "";
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("result").innerText = "";
+      startTime = null;
+    }
+
+    document.getElementById("userInput").addEventListener("input", function () {
+      const typedText = this.value;
+
+      if (!startTime) {
+        startTime = new Date(); 
+      }
+
+      if (typedText === targetText) {
+        const endTime = new Date();
+        const timeTaken = (endTime - startTime) / 1000;
+        const wordCount = typedText.split(" ").length;
+        const wpm = Math.round((wordCount / timeTaken) * 60);
+
+        document.getElementById("feedback").innerText = " Done!";
+        document.getElementById("result").innerText = `Time: ${timeTaken.toFixed(2)} seconds | WPM: ${wpm}`;
+      } else {
+        if (targetText.startsWith(typedText)) {
+          document.getElementById("feedback").innerText = " Keep going...";
+        } else {
+          document.getElementById("feedback").innerText = " Oops! Mistyped.";
+        }
+      }
+    });
+
+    window.onload = loadNewSentence;
+  </script>
+</body>
+</html>
